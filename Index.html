@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qi Forest Spa &amp; Wellness - Consultation Form</title>
+  <style>
+    :root {
+      --primary: #1a3823;
+      --primary-dark: #0f2115;
+      --accent: #cbbfa2;
+      --border-color: #a8bcaf;
+      --text-main: #2b3e34;
+      --text-muted: #55665d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f2f7f4;
+      color: var(--text-main);
+      margin: 0;
+      padding: 20px 10px;
+      line-height: 1.4;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(5px);
+      padding: 20px 30px 25px;
+      border-radius: 14px;
+      box-shadow: 0 16px 45px rgba(28, 60, 38, 0.12);
+      border: 2px solid var(--primary);
+    }
+
+    /* --- HEADER STYLES --- */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      gap: 15px;
+    }
+
+    .header-text {
+      justify-self: start;
+    }
+
+    .header-text h1 {
+      margin: 0 0 2px;
+      color: var(--primary);
+      font-size: 21px;
+      letter-spacing: 0.5px;
+    }
+
+    .header-text p {
+      margin: 0;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    /* Center Logo */
+    .header-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header-logo svg {
+      max-height: 85px; 
+      width: auto;
+      display: block;
+    }
+
+    /* Right side controls */
+    .header-controls {
+      justify-self: end;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      border: 1.5px solid #000000;
+      border-radius: 8px;
+      padding: 8px 12px;
+      min-width: 200px;
+    }
+
+    .form-ref-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .form-ref-header label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #000000;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .form-ref-header input {
+      border: none;
+      background: transparent;
+      font-weight: 800;
+      color: #000000;
+      font-size: 13px;
+      width: 100%;
+      text-align: right;
+      outline: none;
+      padding: 0;
+    }
+
+    /* Mobile adjustments for header */
+    @media (max-width: 750px) {
+      .header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+      .header-text { justify-self: center; }
+      .header-controls { justify-self: center; width: 100%; }
+      .header-logo { margin: 10px 0; }
+    }
+
+    .section {
+      border: 2px solid var(--border-color);
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .section.hidden { display: none !important; }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    .section.spa-use-only {
+      background: #3a4841;
+      border: 2px dashed #8fad88;
+      color: #ffffff;
+    }
+
+    .section.spa-use-only .form-group label { color: #e2ece9; }
+
+    .section.spa-use-only input,
+    .section.spa-use-only select {
+      background-color: #ffffff;
+      color: #1a2520;
+      font-weight: 600;
+      border: 1.5px solid #a8bcaf;
+    }
+
+    .spa-use-banner {
+      font-size: 11px;
+      font-weight: 800;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 10px;
+      display: inline-block;
+      background: #1e2823;
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid #8fad88;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+
+    .section.guest-info { background: #f6faf7; border-color: #8fad88; }
+    .section.health-assessment { background: #f5f8fc; border-color: #8da4be; }
+    .section.treatment-section#massageSection { background: #fcf9f3; border-color: #d6be96; }
+    .section.treatment-section#facialSection { background: #faf4f6; border-color: #ccaeb8; }
+    .section.consent-section { background: #faf8f5; border-color: #c4b8a5; display: block !important; }
+
+    /* GRID SYSTEMS */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .grid-full {
+      grid-column: span 2;
+    }
+
+    .grid-3 .grid-span-2 {
+      grid-column: span 2;
+    }
+
+    .grid-3 .grid-span-3 {
+      grid-column: span 3;
+    }
+
+    @media (max-width: 650px) {
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .grid-full, .grid-3 .grid-span-2, .grid-3 .grid-span-3 { grid-column: span 1; }
+    }
+
+    .form-group { 
+      display: flex; 
+      flex-direction: column; 
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 7px 10px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 12.5px;
+      background: #fff;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(44, 94, 59, 0.15);
+    }
+
+    .form-group input.invalid {
+      border-color: #d9534f;
+      box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.15);
+    }
+
+    .field-hint {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 3px;
+    }
+
+    .field-error {
+      font-size: 10.5px;
+      color: #d9534f;
+      font-weight: 600;
+      margin-top: 3px;
+      display: none;
+    }
+
+    .field-error.visible { display: block; }
+
+    .barometer-box {
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      padding: 10px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .barometer-box label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-main);
+      display: block;
+    }
+
+    .barometer-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #e2e8f0;
+      outline: none;
+      -webkit-appearance: none;
+      margin: 6px 0;
+    }
+
+    .barometer-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .barometer-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .barometer-display {
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--primary);
+      margin-top: 4px;
+    }
+
+    .checkbox-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .checkbox-pill-grid label {
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .checkbox-pill-grid label:hover {
+      border-color: var(--primary);
+      background: #f0f7f3;
+    }
+
+    .checkbox-pill-grid label:has(input:checked) {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .checkbox-pill-grid input[type="checkbox"],
+    .checkbox-pill-grid input[type="radio"] {
+      width: 14px;
+      height: 14px;
+      accent-color: #ffffff;
+    }
+
+    /* 4-column grid for Question 5 */
+    .mood-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .mood-grid label {
+      font-size: 12.5px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .mood-grid label:hover {
+      border-color: var(--primary);
+      background: #f0f7f3;
+    }
+
+    .mood-grid label:has(input:checked) {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .mood-grid input[type="radio"] {
+      width: 14px;
+      height: 14px;
+      accent-color: #ffffff;
+    }
+
+    @media (max-width: 600px) {
+      .mood-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* 5-column right-justified grid for Question 4 */
+    .discomfort-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+      justify-content: flex-end;
+    }
+
+    .discomfort-grid label {
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      cursor: pointer;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .discomfort-grid label:hover {
+      border-color: var(--primary);
+      background: #f0f7f3;
+    }
+
+    .discomfort-grid label:has(input:checked) {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .discomfort-grid input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      accent-color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 700px) {
+      .discomfort-grid { grid-template-columns: 1fr; }
+    }
+
+    .skin-concerns-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .skin-concerns-grid label {
+      font-size: 11.5px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      padding: 6px 4px;
+      border-radius: 6px;
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .skin-concerns-grid label:hover { border-color: var(--primary); background: #f0f7f3; }
+
+    .skin-concerns-grid label:has(input:checked) {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .skin-concerns-grid input[type="checkbox"] { width: 13px; height: 13px; accent-color: #ffffff; }
+
+    .homecare-routine-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    .homecare-routine-grid label {
+      font-size: 11px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      padding: 6px 2px;
+      border-radius: 6px;
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .homecare-routine-grid label:hover { border-color: var(--primary); background: #f0f7f3; }
+
+    .homecare-routine-grid label:has(input:checked) {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .homecare-routine-grid input[type="checkbox"] { width: 12px; height: 12px; accent-color: #ffffff; }
+
+    @media (max-width: 750px) {
+      .skin-concerns-grid { grid-template-columns: repeat(2, 1fr); }
+      .homecare-routine-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .facial-card-container {
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .facial-card-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .required { color: #d9534f; }
+
+    .body-map-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 650px) {
+      .body-map-row { grid-template-columns: 1fr; }
+    }
+
+    .body-charts-wrapper {
+      display: flex;
+      justify-content: space-around;
+      gap: 8px;
+      background: #fff;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border-color);
+    }
+
+    .body-chart-box { text-align: center; flex: 1; }
+    .body-chart-box h4 { margin: 0 0 2px; color: var(--primary); font-size: 11px; letter-spacing: 0.8px; }
+    .body-chart-svg { max-width: 90px; height: auto; cursor: pointer; display: block; margin: 0 auto; }
+
+    .body-part { fill: #e2ece9; stroke: var(--primary); stroke-width: 1.2; transition: fill 0.2s; }
+    .body-part:hover { stroke-width: 2; }
+    .body-part.focus { fill: #e06d6d !important; }
+    .body-part.avoid { fill: #6b9071 !important; }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 5px;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .legend-item { display: flex; align-items: center; gap: 4px; }
+    .color-box { width: 9px; height: 9px; border-radius: 2px; }
+
+    .consent-list {
+      margin: 0 0 10px 0;
+      padding-left: 0;
+      list-style: none;
+      counter-reset: consent-counter;
+    }
+
+    .consent-list li {
+      counter-increment: consent-counter;
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 6px;
+      font-size: 11.5px;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .consent-list li::before {
+      content: counter(consent-counter) ".";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .signature-container {
+      position: relative;
+      border: 1.5px solid var(--border-color);
+      background: #fff;
+      border-radius: 6px;
+      width: 100%;
+      height: 90px;
+      touch-action: none;
+    }
+
+    canvas.signature-pad { width: 100%; height: 100%; display: block; border-radius: 6px; }
+
+    .btn-clear {
+      margin-top: 4px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #e9ecef;
+      color: #495057;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+    }
+
+    .form-actions-bottom { 
+      display: flex; 
+      gap: 10px; 
+      margin-top: 15px; 
+      width: 100%;
+    }
+
+    .btn-submit, .btn-whatsapp, .btn-bottom-print {
+      flex: 1;
+      padding: 12px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+    }
+
+    .btn-submit:hover { background-color: var(--primary-dark); }
+
+    .btn-whatsapp {
+      background-color: #25D366;
+      color: white;
+      border: none;
+    }
+
+    .btn-whatsapp:hover { background-color: #1ebe57; }
+
+    .btn-bottom-print {
+      background-color: #ffffff;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-bottom-print:hover { background-color: var(--primary); color: #ffffff; }
+
+    /* --- PRINT SETTINGS FOR 2 PAGE A4 --- */
+    @media print {
+      @page { size: A4; margin: 10mm; }
+      body { background-color: #fff; padding: 0; font-size: 10.5pt; }
+      .container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
+      
+      .form-actions-bottom, .btn-clear { display: none !important; }
+      
+      .page-break { 
+        page-break-before: always; 
+        break-before: page; 
+        height: 0; 
+        margin: 0; 
+        padding: 0;
+      }
+      
+      .section {
+        border: 1px solid #999 !important;
+        padding: 8px 10px !important;
+        margin-bottom: 8px !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .section.spa-use-only {
+        background: #3a4841 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .header { padding-bottom: 8px; margin-bottom: 10px; }
+      .header-logo svg { max-height: 60px; }
+      .grid, .grid-3 { gap: 8px; }
+      .mood-grid { gap: 8px; }
+      .discomfort-grid { gap: 8px; }
+      .form-group { margin-bottom: 6px; }
+      .form-group input, .form-group select, .form-group textarea { padding: 4px 8px; font-size: 11px; }
+      .field-error { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- HEADER: Title (Left) - Logo (Center) - Ref (Right) -->
+  <div class="header">
+    <div class="header-text">
+      <h1>SPA CONSULTATION FORM</h1>
+      <p>Qi Forest Spa &amp; Wellness — Let Nature Heal</p>
+    </div>
+
+    <div class="header-logo">
+      <!-- VECTOR LOGO RECREATION -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 160" width="160" height="85">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fdfbf7" />
+            <stop offset="30%" stop-color="#e8d5b5" />
+            <stop offset="70%" stop-color="#c7ac7a" />
+            <stop offset="100%" stop-color="#b89b6b" />
+          </linearGradient>
+          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#164235" />
+            <stop offset="100%" stop-color="#0d2a21" />
+          </linearGradient>
+        </defs>
+        
+        <circle cx="150" cy="55" r="48" fill="url(#goldGrad)" />
+        
+        <g fill="none" stroke="url(#leafGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 150 95 Q 150 70 150 45" stroke-width="3"/>
+          <path d="M 150 65 C 130 60 115 40 120 25 C 135 35 148 50 150 65 Z" />
+          <path d="M 150 65 C 140 55 130 45 120 25" stroke-width="1"/>
+          <path d="M 148 55 L 130 35 M 140 50 L 135 45" stroke-width="0.8" />
+          <path d="M 150 65 C 170 60 185 40 180 25 C 165 35 152 50 150 65 Z" />
+          <path d="M 150 65 C 160 55 170 45 180 25" stroke-width="1"/>
+          <path d="M 152 55 L 170 35 M 160 50 L 165 45" stroke-width="0.8" />
+        </g>
+        
+        <text x="150" y="122" font-family="'Times New Roman', serif" font-size="28" fill="#0d2a21" text-anchor="middle" letter-spacing="0.5">qi forest</text>
+        
+        <text x="150" y="142" font-family="'Brush Script MT', 'Cedarville Cursive', cursive" font-size="20" fill="#0d2a21" text-anchor="middle" transform="rotate(-3 150 142)">Spa and Wellness</text>
+      </svg>
+    </div>
+
+    <div class="header-controls">
+      <div class="form-ref-header">
+        <label for="formNo">Form Reference Number</label>
+        <input type="text" id="formNo" name="Form_Reference_Number" readonly>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPDATED ACTION: Pointing to Google Apps Script -->
+  <form id="spaForm" action="YOUR_GOOGLE_WEB_APP_URL_HERE" method="POST" onsubmit="return handleFormSubmit(event)">
+    
+    <!-- Hidden field for Timestamp -->
+    <input type="hidden" name="Timestamp" id="formTimestamp">
+    <!-- Hidden field for Signature -->
+    <input type="hidden" name="Guest_Signature" id="signatureData">
+
+    <!-- PAGE 1: STAFF & GUEST INFO + HEALTH ASSESSMENT -->
+    <div class="section spa-use-only" id="spaUseSection">
+      <div class="spa-use-banner">🔒 FOR SPA USE ONLY — STAFF SECTION (DO NOT FILL)</div>
+
+      <div class="grid">
+        <div class="form-group">
+          <label>Date <span class="required">*</span></label>
+          <input type="date" id="spaDate" name="Spa_Date">
+        </div>
+         
+        <div class="form-group">
+          <label>Therapist Name <span class="required">*</span></label>
+          <select id="therapistNameSelect" name="Therapist_Name" onchange="handleTherapistSelection()">
+            <option value="">-- Select Therapist --</option>
+            <option value="Judy">Judy</option>
+            <option value="Adura">Adura</option>
+            <option value="Naz">Naz</option>
+            <option value="Maria">Maria</option>
+            <option value="Rani">Rani</option>
+            <option value="Fie">Fie</option>
+            <option value="OTHER">Others (Manual Entry)</option>
+          </select>
+        </div>
+
+        <div class="form-group grid-full" id="therapistOtherGroup" style="display: none;">
+          <label>Specify Therapist <span class="required">*</span></label>
+          <input type="text" id="therapistNameCustom" name="Custom_Therapist_Name" placeholder="Enter name">
+        </div>
+
+        <div class="form-group">
+          <label>Treatment Category <span class="required">*</span></label>
+          <select id="treatmentType" name="Treatment_Category" onchange="updateSectionVisibility()" required>
+            <option value="both">Both (Facial &amp; Massage / Others)</option>
+            <option value="massage">Massage Treatment Only</option>
+            <option value="facial">Facial Treatment Only</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Treatment Name <span class="required">*</span></label>
+          <select id="treatmentNameSelect" name="Treatment_Name">
+            <option value="">-- Select Treatment from Menu --</option>
+            <optgroup label="Kids' Spa Menu">
+              <option value="Oasis Shampoo &amp; Blow Dry (30 mins)">Oasis Shampoo &amp; Blow Dry (30 mins)</option>
+              <option value="Hair Care Treatment (60 mins)">Hair Care Treatment (60 mins)</option>
+              <option value="Express Facial (30 mins)">Express Facial (30 mins)</option>
+              <option value="Hand Spa (60 mins)">Hand Spa (60 mins)</option>
+              <option value="Happy Feet &amp; Scalp Massage (60 mins)">Happy Feet &amp; Scalp Massage (60 mins)</option>
+              <option value="Sun Soothe Retreat Massage (60 mins)">Sun Soothe Retreat Massage (60 mins)</option>
+            </optgroup>
+            <optgroup label="Hair Spa">
+              <option value="Repair Deep Cleanse (80 mins)">Repair Deep Cleanse (80 mins)</option>
+              <option value="Rebuild Anti-Ageing Scalp (80 mins)">Rebuild Anti-Ageing Scalp (80 mins)</option>
+            </optgroup>
+            <optgroup label="Facial">
+              <option value="Express Facial (30 mins)">Express Facial (30 mins)</option>
+              <option value="Nourish Facial (60 mins)">Nourish Facial (60 mins)</option>
+              <option value="Define Facial (90 mins)">Define Facial (90 mins)</option>
+            </optgroup>
+            <optgroup label="Massage">
+              <option value="Deep Tissue Massage (60 min)">Deep Tissue Massage (60 mins)</option>
+              <option value="Urutan Malaysia (90 mins)">Urutan Malaysia (90 mins)</option>
+              <option value="Qi Forest Signature Massage (90 mins)">Qi Forest Signature Massage (90 mins)</option>
+              <option value="Qi Forest Hot Stone Massage (90 mins)">Qi Forest Hot Stone Massage (90 mins)</option>
+            </optgroup>
+            <optgroup label="Spa Journey">
+              <option value="Divine Perhentian (120 mins)">Divine Perhentian (120 mins)</option>
+              <option value="Contrast Relief Ritual (120 mins)">Contrast Relief Ritual (120 mins)</option>
+              <option value="Ultimate Indulgence (140 mins)">Ultimate Indulgence (140 mins)</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUEST INFORMATION SECTION (3 Columns) -->
+    <div class="section guest-info">
+      <div class="section-title">Guest Information</div>
+      <div class="grid-3">
+        <div class="form-group">
+          <label>Given Name <span class="required">*</span></label>
+          <input type="text" id="givenName" name="Given_Name" required>
+        </div>
+        <div class="form-group">
+          <label>Surname <span class="required">*</span></label>
+          <input type="text" id="surname" name="Surname" required>
+        </div>
+         
+        <div class="form-group">
+          <label>Resort guest? <span class="required">*</span></label>
+          <select id="isHotelGuest" name="Is_Resort_Guest" onchange="toggleHotelGuest()" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="roomNoGroup">
+          <label>Room Number <span class="required">*</span></label>
+          <input type="text" id="roomNo" name="Room_Number" placeholder="Room #">
+        </div>
+
+        <div class="form-group">
+          <label>Bonvoy Tier <span class="required">*</span></label>
+          <select id="bonvoyTier" name="Bonvoy_Tier" required>
+            <option value="Not Applicable">Not Applicable</option>
+            <option value="Ambassador Elite">Ambassador Elite</option>
+            <option value="Titanium Elite">Titanium Elite</option>
+            <option value="Platinum Elite">Platinum Elite</option>
+            <option value="Gold Elite">Gold Elite</option>
+            <option value="Silver Elite">Silver Elite</option>
+          </select>
+        </div>
+         
+        <div class="form-group">
+          <label>Residence Country <span class="required">*</span></label>
+          <input type="text" id="country" name="Residence_Country" list="countryList" placeholder="Type or select" required>
+          <datalist id="countryList">
+            <option value="Malaysia"></option>
+            <option value="Singapore"></option>
+            <option value="United Kingdom"></option>
+            <option value="United States"></option>
+            <option value="Australia"></option>
+            <option value="China"></option>
+          </datalist>
+        </div>
+
+        <div class="form-group">
+          <label>Country Code <span class="required">*</span></label>
+          <select id="countryCodeSelect" name="Country_Code_Select" onchange="handleCountryCodeSelection()" required>
+            <option value="">-- Select --</option>
+            <option value="+65">Singapore (+65)</option>
+            <option value="+62">Indonesia (+62)</option>
+            <option value="+86">China (+86)</option>
+            <option value="+66">Thailand (+66)</option>
+            <option value="+673">Brunei (+673)</option>
+            <option value="+91">India (+91)</option>
+            <option value="+82">South Korea (+82)</option>
+            <option value="+84">Vietnam (+84)</option>
+            <option value="+61">Australia (+61)</option>
+            <option value="+63">Philippines (+63)</option>
+            <option value="+81">Japan (+81)</option>
+            <option value="+886">Taiwan (+886)</option>
+            <option value="+44">UK (+44)</option>
+            <option value="+1">USA / Canada (+1)</option>
+            <option value="+49">Germany (+49)</option>
+            <option value="+33">France (+33)</option>
+            <option value="+966">Saudi Arabia (+966)</option>
+            <option value="+971">UAE (+971)</option>
+            <option value="+31">Netherlands (+31)</option>
+            <option value="+64">New Zealand (+64)</option>
+            <option value="+60">Malaysia (+60)</option>
+            <option value="OTHER">Others (Type manually)</option>
+          </select>
+        </div>
+
+        <div class="form-group grid-span-2" id="countryCodeCustomGroup" style="display: none;">
+          <label>Enter Country Code <span class="required">*</span></label>
+          <input type="tel" id="countryCodeCustom" name="Custom_Country_Code" placeholder="e.g. +41 (Switzerland)" inputmode="tel" oninput="validateCountryCode(this)">
+          <div class="field-hint">Include the + sign, e.g. +41, +81, +49.</div>
+          <div class="field-error" id="countryCodeError">Please enter a valid code starting with '+' (1-4 digits).</div>
+        </div>
+
+        <div class="form-group">
+          <label>WhatsApp / Mobile <span class="required">*</span></label>
+          <input type="tel" id="whatsapp" name="WhatsApp_Number" placeholder="Mobile number" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Email Address <span class="required">*</span></label>
+          <input type="email" id="email" name="Email_Address" placeholder="name@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Date of Birth <span class="required">*</span></label>
+          <input type="date" id="dob" name="Date_of_Birth" required>
+        </div>
+
+        <div class="form-group grid-span-3" id="referralGroup" style="display: none;">
+          <label>How did you hear about us? <span class="required">*</span></label>
+          <select id="referralSource" name="Referral_Source">
+            <option value="">-- Please Select --</option>
+            <option value="Google">Google</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Facebook">Facebook</option>
+            <option value="TikTok">TikTok</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEALTH & WELLNESS ASSESSMENT -->
+    <div class="section health-assessment">
+      <div class="section-title">Health &amp; Wellness Assessment</div>
+
+      <div class="form-group grid-full" style="margin-bottom: 10px;">
+        <label>1. Serious medical conditions, recent injuries, or surgeries? <span class="required">*</span></label>
+        <textarea id="illnessHistory" name="Medical_History" rows="2" placeholder="Provide details or write 'None'" required></textarea>
+      </div>
+
+      <div class="grid" style="margin-bottom: 10px;">
+        <div class="barometer-box">
+          <label>2. Sleep Quality Barometer: <span class="required">*</span></label>
+          <div>
+            <input type="range" id="sleepSlider" min="1" max="4" step="1" value="3" class="barometer-slider" oninput="updateSleepBarometer(this.value)">
+            <div class="barometer-labels">
+              <span>1 (Insomnia)</span><span>2 (Poor)</span><span>3 (Normal)</span><span>4 (Good)</span>
+            </div>
+            <div class="barometer-display" id="sleepDisplay">Sleep Quality: Normal</div>
+            <input type="hidden" id="sleepingCondition" name="Sleep_Quality" value="Normal">
+          </div>
+        </div>
+
+        <div class="barometer-box">
+          <label>3. Stress Level Barometer (1-10): <span class="required">*</span></label>
+          <div>
+            <input type="range" id="stressSlider" min="1" max="10" step="1" value="3" class="barometer-slider" oninput="updateStressBarometer(this.value)">
+            <div class="barometer-labels">
+              <span>1 (Low)</span><span>5 (Moderate)</span><span>10 (Severe)</span>
+            </div>
+            <div class="barometer-display" id="stressDisplay">Stress Level: 3 - Mild</div>
+            <input type="hidden" id="stressLevel" name="Stress_Level" value="3">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right-justified 5-column grid for Question 4 -->
+      <div class="form-group grid-full" style="margin-bottom: 10px;">
+        <label>4. Common tension or discomfort areas:</label>
+        <div class="discomfort-grid">
+          <label><input type="checkbox" name="Discomfort_Areas" value="Headaches" onchange="handleDiscomfortChange(this)"> Headaches</label>
+          <label><input type="checkbox" name="Discomfort_Areas" value="Migraines" onchange="handleDiscomfortChange(this)"> Migraines</label>
+          <label><input type="checkbox" name="Discomfort_Areas" value="Lower Back Tension" onchange="handleDiscomfortChange(this)"> Lower Back Tension</label>
+          <label><input type="checkbox" name="Discomfort_Areas" value="Neck &amp; Shoulder Tightness" onchange="handleDiscomfortChange(this)"> Neck &amp; Shoulder</label>
+          <label><input type="checkbox" name="Discomfort_Areas" value="None" id="painNone" onchange="handleDiscomfortNone(this)"> None</label>
+        </div>
+      </div>
+
+      <div class="form-group grid-full" style="margin-bottom: 10px;">
+        <label>5. Current Mood / Stress State: <span class="required">*</span></label>
+        <div class="mood-grid">
+          <label><input type="radio" name="Emotional_Condition" value="Relaxed" required> Relaxed</label>
+          <label><input type="radio" name="Emotional_Condition" value="Stressed"> Stressed</label>
+          <label><input type="radio" name="Emotional_Condition" value="Anxious"> Anxious</label>
+          <label><input type="radio" name="Emotional_Condition" value="Fatigued"> Fatigued</label>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="form-group">
+          <label>6. Current Medications: <span class="required">*</span></label>
+          <input type="text" id="medication" name="Current_Medications" placeholder="List medications or 'None'" required>
+        </div>
+
+        <div class="form-group">
+          <label>7. Currently pregnant? <span class="required">*</span></label>
+          <select id="pregnancyStatus" name="Pregnancy_Status" onchange="togglePregnancyMonths()" required>
+            <option value="N/A">N/A / Not Applicable</option>
+            <option value="No">No</option>
+            <option value="Yes">Yes (Please advise months)</option>
+          </select>
+        </div>
+
+        <div class="form-group grid-full" id="pregnancyMonthsGroup" style="display: none;">
+          <label>How many weeks / months? <span class="required">*</span></label>
+          <input type="text" id="pregnancyMonths" name="Pregnancy_Duration" placeholder="e.g., 4 months or 16 weeks">
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PAGE 2 BREAK FOR PRINTING ================= -->
+    <div class="page-break"></div>
+
+    <!-- MASSAGE PREFERENCE SECTION -->
+    <div class="section treatment-section" id="massageSection">
+      <div class="section-title">Massage Preference &amp; Body Chart</div>
+       
+      <div class="form-group grid-full" style="margin-bottom: 10px;">
+        <label>Preferred Pressure Strength: <span class="required">*</span></label>
+        <div class="checkbox-pill-grid">
+          <label><input type="radio" name="Massage_Strength" value="Soft" required> Soft</label>
+          <label><input type="radio" name="Massage_Strength" value="Medium" checked> Medium</label>
+          <label><input type="radio" name="Massage_Strength" value="Firm"> Firm</label>
+        </div>
+      </div>
+
+      <div class="body-map-row">
+        <div class="form-group" style="margin-bottom: 0; display: flex; flex-direction: column;">
+          <label><b>Interactive Body Map:</b> (Tap region to toggle)</label>
+          <div class="body-charts-wrapper" style="flex: 1;">
+            <div class="body-chart-box">
+              <h4>FRONT</h4>
+              <svg class="body-chart-svg" viewBox="0 0 200 400">
+                <circle class="body-part" cx="100" cy="40" r="25"><title>Head &amp; Face</title></circle>
+                <rect class="body-part" x="90" y="68" width="20" height="15" rx="3"><title>Neck &amp; Throat</title></rect>
+                <path class="body-part" d="M 50,90 Q 100,80 150,90 L 140,110 L 60,110 Z"><title>Shoulders &amp; Collarbone</title></path>
+                <rect class="body-part" x="30" y="95" width="22" height="90" rx="10"><title>Left Arm &amp; Hand</title></rect>
+                <rect class="body-part" x="148" y="95" width="22" height="90" rx="10"><title>Right Arm &amp; Hand</title></rect>
+                <rect class="body-part" x="60" y="115" width="80" height="90" rx="5"><title>Chest &amp; Abdomen</title></rect>
+                <rect class="body-part" x="62" y="210" width="34" height="140" rx="8"><title>Left Leg &amp; Foot</title></rect>
+                <rect class="body-part" x="104" y="210" width="34" height="140" rx="8"><title>Right Leg &amp; Foot</title></rect>
+              </svg>
+            </div>
+
+            <div class="body-chart-box">
+              <h4>BACK</h4>
+              <svg class="body-chart-svg" viewBox="0 0 200 400">
+                <circle class="body-part" cx="100" cy="40" r="25"><title>Head (Back)</title></circle>
+                <rect class="body-part" x="90" y="68" width="20" height="15" rx="3"><title>Neck (Back)</title></rect>
+                <path class="body-part" d="M 50,90 Q 100,80 150,90 L 140,110 L 60,110 Z"><title>Upper Shoulders / Traps</title></path>
+                <rect class="body-part" x="30" y="95" width="22" height="90" rx="10"><title>Left Arm (Back)</title></rect>
+                <rect class="body-part" x="148" y="95" width="22" height="90" rx="10"><title>Right Arm (Back)</title></rect>
+                <rect class="body-part" x="60" y="115" width="80" height="90" rx="5"><title>Upper &amp; Lower Back</title></rect>
+                <rect class="body-part" x="62" y="210" width="34" height="140" rx="8"><title>Left Leg (Back)</title></rect>
+                <rect class="body-part" x="104" y="210" width="34" height="140" rx="8"><title>Right Leg (Back)</title></rect>
+              </svg>
+            </div>
+          </div>
+          <div class="legend">
+            <div class="legend-item"><div class="color-box" style="background:#e2ece9; border:1px solid var(--primary)"></div> Normal</div>
+            <div class="legend-item"><div class="color-box" style="background:#e06d6d"></div> Focus</div>
+            <div class="legend-item"><div class="color-box" style="background:#6b9071"></div> Avoid</div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0; display: flex; flex-direction: column;">
+          <label for="bodyMapNotes"><b>Specific Areas of Concern &amp; Notes:</b></label>
+          <textarea id="bodyMapNotes" name="Body_Map_Notes" rows="4" placeholder="Describe any specific tension areas or sensitive spots..." style="flex: 1; resize: none;"></textarea>
+          <div style="font-size: 10px; color: var(--text-muted); font-style: italic; margin-top: 4px;">
+            * Tap map regions to cycle through Normal, Focus, and Avoid states.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FACIAL PREFERENCE SECTION -->
+    <div class="section treatment-section" id="facialSection">
+      <div class="section-title">Facial Skin Analysis &amp; Preferences</div>
+      
+      <div class="facial-card-container">
+        <div class="facial-card-title">1. Skin Profile &amp; Condition</div>
+        <div class="grid">
+          <div class="form-group">
+            <label>Skin Type:</label>
+            <select id="skinTypeSelect" name="Skin_Type">
+              <option value="">-- Select --</option><option value="Normal">Normal</option><option value="Dry">Dry</option><option value="Oily">Oily</option><option value="Combination">Combination</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Skin Texture / Feeling:</label>
+            <select id="skinFeelingSelect" name="Skin_Feeling">
+              <option value="">-- Select --</option><option value="Flaky">Flaky</option><option value="Reddish">Reddish</option><option value="Tight">Tight</option><option value="Excessive Oil">Excessive Oil</option>
+            </select>
+          </div>
+
+          <div class="form-group grid-full">
+            <label>Sun Exposure:</label>
+            <select id="sunExposureSelect" name="Sun_Exposure">
+              <option value="">-- Select --</option><option value="Never">Never</option><option value="Slight">Slight</option><option value="Moderate">Moderate</option><option value="Excessive">Excessive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="facial-card-container">
+        <div class="facial-card-title">2. Primary Skin Concerns</div>
+        <div class="skin-concerns-grid">
+          <label><input type="checkbox" name="Skin_Concerns" value="Sensitivity"> Sensitivity</label>
+          <label><input type="checkbox" name="Skin_Concerns" value="Acne Scars"> Acne Scars</label>
+          <label><input type="checkbox" name="Skin_Concerns" value="Hyperpigmentation"> Pigmentation</label>
+          <label><input type="checkbox" name="Skin_Concerns" value="Dull"> Dullness</label>
+          <label><input type="checkbox" name="Skin_Concerns" value="Wrinkles"> Wrinkles</label>
+          
+          <label><input type="checkbox" name="Skin_Concerns" value="Dryness"> Dryness</label>
+          <label><input type="checkbox" name="Skin_Concerns" value="Acne"> Acne</label>
+          <label><input type="checkbox" name="Skin_Concerns" value="Aging"> Aging</label>
+          <label><input type="checkbox" name="Skin_Concerns" value="Blackheads"> Blackheads</label>
+          <label><input type="checkbox" name="Skin_Concerns" value="Uneven Skin Tone"> Uneven Tone</label>
+        </div>
+      </div>
+
+      <div class="facial-card-container" style="margin-bottom: 0;">
+        <div class="facial-card-title">3. Homecare Routine &amp; Recent History</div>
+        <div class="form-group" style="margin-bottom: 10px;">
+          <label>Regularly used products:</label>
+          <div class="homecare-routine-grid">
+            <label><input type="checkbox" name="Skincare_Routine" value="Facial Cleanser"> Cleanser</label>
+            <label><input type="checkbox" name="Skincare_Routine" value="Facial Scrub"> Scrub</label>
+            <label><input type="checkbox" name="Skincare_Routine" value="Toner"> Toner</label>
+            <label><input type="checkbox" name="Skincare_Routine" value="Facial Mask"> Mask</label>
+            <label><input type="checkbox" name="Skincare_Routine" value="Eye Cream"> Eye Cream</label>
+            <label><input type="checkbox" name="Skincare_Routine" value="Facial Serum"> Serum</label>
+            <label><input type="checkbox" name="Skincare_Routine" value="Sunscreen"> Sunscreen</label>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="form-group">
+            <label>Last Facial Date:</label>
+            <input type="text" id="lastFacialDate" name="Last_Facial_Date" placeholder="e.g., 2 weeks ago">
+          </div>
+          <div class="form-group">
+            <label>Recent Peel/Laser/Botox (Past 4 wks):</label>
+            <input type="text" id="recentCosmeticProcedures" name="Recent_Procedures" placeholder="Details or 'None'">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACKNOWLEDGMENT & CONSENT SECTION -->
+    <div class="section consent-section" style="margin-bottom: 8px;">
+      <div class="section-title">ACKNOWLEDGEMENT &amp; CONSENT</div>
+      
+      <ol class="consent-list">
+        <li>I confirm that all health disclosures and personal information provided above are true and complete. I understand that treatments are voluntary and release the spa and practitioners from liability regarding withheld information.</li>
+        <li>I acknowledge our 24-hour cancellation policy; appointments canceled within 24 hours of scheduled time will incur a cancellation fee equal to the treatment cost.</li>
+        <li>Qi Forest Spa and Wellness maintains a safe, respectful environment. Staff reserve the right to immediately terminate treatments in the event of non-compliance or inappropriate behavior, which remains fully chargeable and non-refundable.</li>
+      </ol>
+
+      <div class="form-group" style="margin-bottom: 4px;">
+        <label>Guest Signature <span class="required">*</span></label>
+        <div class="signature-container">
+          <canvas id="signaturePad" class="signature-pad"></canvas>
+        </div>
+        <button type="button" class="btn-clear" onclick="clearSignature()">Clear Signature</button>
+      </div>
+    </div>
+
+    <!-- BOTTOM ACTIONS: Submit, WhatsApp, Print -->
+    <div class="form-actions-bottom">
+      <button type="submit" class="btn-submit">Submit</button>
+      <button type="button" class="btn-whatsapp" onclick="shareViaWhatsApp()">💬 Share WhatsApp</button>
+      <button type="button" class="btn-bottom-print" onclick="window.print()">🖨️ Print / PDF</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    generateSequentialFormRef();
+    
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('spaDate').value = today;
+
+    initSignaturePad();
+    initBodyMap();
+    updateSectionVisibility();
+    togglePregnancyMonths();
+    updateSleepBarometer(3);
+    updateStressBarometer(3);
+    
+    loadFormData();
+    document.getElementById('spaForm').addEventListener('input', saveFormData);
+  });
+
+  function saveFormData() {
+    const form = document.getElementById('spaForm');
+    const formData = {};
+    new FormData(form).forEach((value, key) => {
+      if (formData[key]) {
+        if (!Array.isArray(formData[key])) {
+          formData[key] = [formData[key]];
+        }
+        formData[key].push(value);
+      } else {
+        formData[key] = value;
+      }
+    });
+    localStorage.setItem('qiForestFormAutosave', JSON.stringify(formData));
+  }
+
+  function loadFormData() {
+    const saved = localStorage.getItem('qiForestFormAutosave');
+    if (!saved) return;
+    
+    try {
+      const formData = JSON.parse(saved);
+      const form = document.getElementById('spaForm');
+      
+      Object.keys(formData).forEach(key => {
+        const elements = form.elements[key];
+        if (!elements) return;
+        
+        const values = Array.isArray(formData[key]) ? formData[key] : [formData[key]];
+        
+        if (elements.length && elements[0].type === 'radio') {
+           Array.from(elements).forEach(el => {
+             if (values.includes(el.value)) el.checked = true;
+           });
+        } else if (elements.length && elements[0].type === 'checkbox') {
+           Array.from(elements).forEach(el => {
+             if (values.includes(el.value)) el.checked = true;
+           });
+        } else {
+           elements.value = values[0];
+        }
+      });
+      
+      toggleHotelGuest();
+      handleTherapistSelection();
+      handleCountryCodeSelection();
+      togglePregnancyMonths();
+      updateSectionVisibility();
+    } catch(e) { console.error("Autosave load error", e); }
+  }
+
+  function generateSequentialFormRef() {
+    const currentYear = new Date().getFullYear();
+    const storageKey = `qf_form_seq_${currentYear}`;
+    let currentSeq = parseInt(localStorage.getItem(storageKey) || "0", 10) + 1;
+    localStorage.setItem(storageKey, currentSeq);
+
+    const formattedSeq = String(currentSeq).padStart(3, '0');
+    document.getElementById('formNo').value = `QF-CONS-${currentYear}-${formattedSeq}`;
+  }
+
+  function updateSleepBarometer(val) {
+    const sleepMap = { "1": "Insomnia", "2": "Poor", "3": "Normal", "4": "Good" };
+    document.getElementById('sleepDisplay').innerText = "Sleep Quality: " + sleepMap[val];
+    document.getElementById('sleepingCondition').value = sleepMap[val];
+  }
+
+  function updateStressBarometer(val) {
+    let desc = "Low";
+    if (val >= 4 && val <= 6) desc = "Moderate";
+    else if (val >= 7 && val <= 9) desc = "High";
+    else if (val == 10) desc = "Severe";
+    else if (val == 3) desc = "Mild";
+
+    document.getElementById('stressDisplay').innerText = `Stress Level: ${val} - ${desc}`;
+    document.getElementById('stressLevel').value = val;
+  }
+
+  function handleCountryCodeSelection() {
+    const val = document.getElementById('countryCodeSelect').value;
+    const customGroup = document.getElementById('countryCodeCustomGroup');
+    const customInput = document.getElementById('countryCodeCustom');
+    const errorMsg = document.getElementById('countryCodeError');
+    
+    if (val === 'OTHER') {
+      customGroup.style.display = 'flex';
+      customInput.setAttribute('required', 'true');
+    } else {
+      customGroup.style.display = 'none';
+      customInput.removeAttribute('required');
+      customInput.value = '';
+      customInput.classList.remove('invalid');
+      errorMsg.classList.remove('visible');
+    }
+  }
+
+  function validateCountryCode(input) {
+    const val = input.value.trim();
+    const errorMsg = document.getElementById('countryCodeError');
+    const isValid = /^\+\d{1,4}$/.test(val);
+    
+    if (val === '' || isValid) {
+      input.classList.remove('invalid');
+      errorMsg.classList.remove('visible');
+    } else {
+      input.classList.add('invalid');
+      errorMsg.classList.add('visible');
+    }
+  }
+
+  function togglePregnancyMonths() {
+    const status = document.getElementById('pregnancyStatus').value;
+    const monthsGroup = document.getElementById('pregnancyMonthsGroup');
+    const monthsInput = document.getElementById('pregnancyMonths');
+
+    if (status.startsWith('Yes')) {
+      monthsGroup.style.display = 'flex';
+      monthsInput.setAttribute('required', 'true');
+    } else {
+      monthsGroup.style.display = 'none';
+      monthsInput.removeAttribute('required');
+      monthsInput.value = '';
+    }
+  }
+
+  function handleDiscomfortChange(el) {
+    if (el.checked) document.getElementById('painNone').checked = false;
+  }
+
+  function handleDiscomfortNone(el) {
+    if (el.checked) {
+      document.querySelectorAll('input[name="Discomfort_Areas"]').forEach(cb => {
+        if (cb !== el) cb.checked = false;
+      });
+    }
+  }
+
+  function toggleHotelGuest() {
+    const isHotel = document.getElementById('isHotelGuest').value;
+    const roomGroup = document.getElementById('roomNoGroup');
+    const roomInput = document.getElementById('roomNo');
+    const referralGroup = document.getElementById('referralGroup');
+    const referralSelect = document.getElementById('referralSource');
+
+    if (isHotel === 'yes') {
+      roomGroup.style.display = 'flex';
+      roomInput.setAttribute('required', 'true');
+      referralGroup.style.display = 'none';
+      referralSelect.removeAttribute('required');
+    } else {
+      roomGroup.style.display = 'none';
+      roomInput.removeAttribute('required');
+      referralGroup.style.display = 'flex';
+      referralSelect.setAttribute('required', 'true');
+    }
+  }
+
+  function handleTherapistSelection() {
+    const val = document.getElementById('therapistNameSelect').value;
+    const customGroup = document.getElementById('therapistOtherGroup');
+    const customInput = document.getElementById('therapistNameCustom');
+    if (val === 'OTHER') {
+      customGroup.style.display = 'flex';
+      customInput.setAttribute('required', 'true');
+    } else {
+      customGroup.style.display = 'none';
+      customInput.removeAttribute('required');
+    }
+  }
+
+  function updateSectionVisibility() {
+    const type = document.getElementById('treatmentType').value;
+    const massageSec = document.getElementById('massageSection');
+    const facialSec = document.getElementById('facialSection');
+
+    if (type === 'massage') {
+      massageSec.classList.remove('hidden');
+      facialSec.classList.add('hidden');
+    } else if (type === 'facial') {
+      massageSec.classList.add('hidden');
+      facialSec.classList.remove('hidden');
+    } else {
+      massageSec.classList.remove('hidden');
+      facialSec.classList.remove('hidden');
+    }
+  }
+
+  function initBodyMap() {
+    const bodyParts = document.querySelectorAll('.body-part');
+    bodyParts.forEach(part => {
+      part.addEventListener('click', function() {
+        if (this.classList.contains('focus')) {
+          this.classList.remove('focus');
+          this.classList.add('avoid');
+        } else if (this.classList.contains('avoid')) {
+          this.classList.remove('avoid');
+        } else {
+          this.classList.add('focus');
+        }
+      });
+    });
+  }
+
+  let canvas, ctx, isDrawing = false;
+  function initSignaturePad() {
+    canvas = document.getElementById('signaturePad');
+    ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDraw);
+    canvas.addEventListener('mouseleave', stopDraw);
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDraw(e.touches[0]); });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e.touches[0]); });
+    canvas.addEventListener('touchend', stopDraw);
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return { x: (e.clientX || e.pageX) - rect.left, y: (e.clientY || e.pageY) - rect.top };
+  }
+
+  function startDraw(e) {
+    isDrawing = true;
+    ctx.beginPath();
+    const pos = getPos(e);
+    ctx.moveTo(pos.x, pos.y);
+  }
+
+  function draw(e) {
+    if (!isDrawing) return;
+    const pos = getPos(e);
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#1a3823';
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+  }
+
+  function stopDraw() { isDrawing = false; }
+  function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+  function shareViaWhatsApp() {
+    const refNo = document.getElementById('formNo').value;
+    const text = encodeURIComponent(`Dear Guest, welcome to Qi Forest Spa & Wellness! Please complete your consultation form prior to your appointment using your Form Reference Number [${refNo}]. Thank you!`);
+    window.open(`https://wa.me/?text=${text}`, '_blank');
+  }
+
+  function handleFormSubmit(event) {
+    const countryCodeSelect = document.getElementById('countryCodeSelect').value;
+    if (countryCodeSelect === 'OTHER') {
+      const customInput = document.getElementById('countryCodeCustom');
+      const val = customInput.value.trim();
+      const isValid = /^\+\d{1,4}$/.test(val);
+      if (!isValid) {
+        customInput.classList.add('invalid');
+        document.getElementById('countryCodeError').classList.add('visible');
+        customInput.focus();
+        alert('Please enter a valid Country Code starting with "+" (e.g. +41).');
+        return false;
+      }
+    }
+
+    const whatsappInput = document.getElementById('whatsapp');
+    let phoneNum = whatsappInput.value.trim();
+    
+    if (!phoneNum.startsWith('+')) {
+      let codeToUse = countryCodeSelect;
+      if (codeToUse === 'OTHER') {
+        codeToUse = document.getElementById('countryCodeCustom').value.trim();
+      }
+      
+      if (phoneNum.startsWith('0')) {
+        phoneNum = phoneNum.substring(1);
+      }
+      
+      whatsappInput.value = codeToUse + ' ' + phoneNum;
+    }
+
+    const signatureData = document.getElementById('signatureData');
+    if (canvas) {
+      signatureData.value = canvas.toDataURL('image/png');
+    }
+    
+    // Set the timestamp just before submission
+    document.getElementById('formTimestamp').value = new Date().toISOString();
+
+    localStorage.removeItem('qiForestFormAutosave');
+    return true; 
+  }
+</script>
+</body>
+</html>
